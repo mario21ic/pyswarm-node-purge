@@ -1,4 +1,5 @@
 - Join to a cluster as manager or worker
+- List workers desired and managers
 - List containers per node
 - List services desired and replicas
 - List node with status down and unknown
