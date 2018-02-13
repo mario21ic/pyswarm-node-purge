@@ -1,10 +1,11 @@
+- Remove a node worker or manager
+
+- Demote a node when is Down
 - Join to a cluster as manager or worker
 - List workers desired and managers
 - List containers per node
 - List services desired and replicas
 - List node with status down and unknown
-- Demote a node when is Down
-- Remove a node worker or manager
 - Migrate to new cluster
 - Scale a node worker
 - Scale a service
