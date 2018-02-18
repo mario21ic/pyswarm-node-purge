@@ -1,0 +1,20 @@
+version: "3"
+services:
+  app:
+    image: mario21ic/swarm-ec2-purge
+    volumes:
+      - ~/.aws/credentials:/root/.aws/credentials:rw
+      - /var/run/docker.sock:/var/run/docker.sock
+    deploy:
+      mode: replicated
+      replicas: 1
+      labels: [APP=EC2_PURGE]
+      update_config:
+        parallelism: 1
+        delay: 10s
+      restart_policy:
+        condition: on-failure
+      placement:
+        constraints: [node.role == manager]
+    command: python main.py
+
