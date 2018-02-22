@@ -2,6 +2,8 @@ version: "3"
 services:
   app:
     image: mario21ic/swarm-ec2-purge
+    environment:
+      - AWS_REGION=${AWS_REGION}
     volumes:
       - ~/.aws/credentials:/root/.aws/credentials:rw
       - /var/run/docker.sock:/var/run/docker.sock

@@ -5,20 +5,21 @@ import docker
 import time
 import platform
 import logging
+import os
 
 
 docker_client = docker.from_env()
 docker_api = docker.APIClient(base_url='unix://var/run/docker.sock')
-region = "us-east-1"
-logging.basicConfig(filename='output.log', level=logging.INFO, format='%(asctime)s %(message)s ' + platform.node() + " : ")
+region = str(os.environ['AWS_REGION'])
+logging.basicConfig(level=logging.INFO, format='%(asctime)s %(message)s ' + platform.node() + " : ")
 
 
 def main():
     while True:
-        logging.info("### I am the Leader: ###")
+        logging.info("### New iteration ###")
         # nodes_workers = client.nodes.list(filters={'role': 'worker'})
         nodes = docker_client.nodes.list()
-        # print(nodes)
+        #logging.info(nodes)
         for node in nodes:
             if node.attrs['Status']['State'] == "down":
                 node_id = node.attrs['ID']
@@ -70,7 +71,7 @@ def main():
                 except Exception as e:
                     logging.error("Ec2 Error: " + str(e))
 
-        time.sleep(5)
+        time.sleep(10)
 
 if __name__ == "__main__":
     main()
